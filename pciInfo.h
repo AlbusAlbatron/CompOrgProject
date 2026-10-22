@@ -1,12 +1,12 @@
 //header file shares the prototype for every function needed between shared files
 
-int createList(char *devices[], int tempMax);
-int sortList(char *inList[], int inListLen);
+int create_list(char *devices[], int temp_max);
+int sort_list(char *in_list[], int in_list_len);
 
-char* getBus(char bus[], char *inList[], int index);
-char* getDevice(char device[], char *inList[], int index);
-char* getFunction(char function[], char *inList[], int index);
+char* get_bus(char bus[], char *in_list[], int index);
+char* get_device(char device[], char *in_list[], int index);
+char* get_function(char function[], char *in_list[], int index);
 
-char* getVendorID(char vendorID[], char*inList[], int index);
-char* getDeviceID(char deviceID[], char*inList[], int index);
-char* getClassCode(char classCode[], char*inList[], int index);
+char* get_vendor_id(char vendor_id[], char*in_list[], int index);
+char* get_device_id(char device_id[], char*in_list[], int index);
+char* get_class_code(char class_code[], char*in_list[], int index);

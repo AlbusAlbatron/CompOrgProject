@@ -14,7 +14,7 @@
 //Close the directory ROOT
 //return the amount of elements in the array
 //When calling this function, you can assign it to a variable pciCount and need a big empty array to pass in as a parameter 
-int createList(char *devices[], int tempMax) {
+int create_list(char *devices[], int temp_max) {
     DIR *ROOT = opendir("/sys/bus/pci/devices");
     struct dirent *file;
 
@@ -27,11 +27,11 @@ int createList(char *devices[], int tempMax) {
         index++;
     }
 
-    int pciCount = 0;
-    for (int i = 0;(devices[i] != NULL) && (i < tempMax); i++) pciCount++;
+    int pci_count = 0;
+    for (int i = 0;(devices[i] != NULL) && (i < temp_max); i++) pci_count++;
 
     closedir(ROOT);
-    return pciCount;
+    return pci_count;
 }
 
 
@@ -42,8 +42,8 @@ int compare_strings(const void *a, const void *b) {
     return strcmp(str_a, str_b);
 }
 //Sorts the list using qsort() from stdlib.h
-int sortList(char *inList[], int inListLen) {
-    qsort(inList, inListLen, sizeof(char *), compare_strings);
+int sort_list(char *in_list[], int in_list_len) {
+    qsort(in_list, in_list_len, sizeof(char *), compare_strings);
     return 0;
 }
 
@@ -52,18 +52,18 @@ int sortList(char *inList[], int inListLen) {
 //Takes in a string to overwrite, the device list, and an index from that list
 //Overwrites the input string with the correct substring
 //'\0' closes or like ends the string so theres not trailing characters and stuff
-char* getBus(char bus[], char *inList[], int index) {
-    strncpy(bus, inList[index] + 5, 2);
+char* get_bus(char bus[], char *in_list[], int index) {
+    strncpy(bus, in_list[index] + 5, 2);
     bus[2] = '\0';
     return bus;
 }
-char* getDevice(char device[], char *inList[], int index) {
-    strncpy(device, inList[index] + 8, 2);
+char* get_device(char device[], char *in_list[], int index) {
+    strncpy(device, in_list[index] + 8, 2);
     device[2] = '\0';
     return device;
 }
-char* getFunction(char function[], char *inList[], int index) {
-    strncpy(function, inList[index] + 11, 1);
+char* get_function(char function[], char *in_list[], int index) {
+    strncpy(function, in_list[index] + 11, 1);
     function[1] = '\0';
     return function;
 }
@@ -76,69 +76,69 @@ char* getFunction(char function[], char *inList[], int index) {
 //Make a temp string to hold all content of the file
 //Take the target substring, same way as above functions
 //Close the file and return the string
-char* getVendorID(char vendorID[], char*inList[], int index) {
-    char rootPath[] = "/sys/bus/pci/devices";
-    char targetFile[] = "vendor";
+char* get_vendor_id(char vendor_id[], char*in_list[], int index) {
+    char root_path[] = "/sys/bus/pci/devices";
+    char target_file[] = "vendor";
 
     char path[60] = {0};
     for (int i = 0; i < 60; i++) {
-        if (i < 20) path[i] = rootPath[i];
+        if (i < 20) path[i] = root_path[i];
         else if (i == 20) path[i] = '/';
-        else if (i < 33) path[i] = inList[index][i - 21];
+        else if (i < 33) path[i] = in_list[index][i - 21];
         else if (i == 33) path[i] = '/';
-        else path[i] = targetFile[i - 34];
+        else path[i] = target_file[i - 34];
     }
 
     FILE *file;
     file = fopen(path, "r");
-    char vendorCont[10];
-    fgets(vendorCont, 10, file);
+    char vendor_content[10];
+    fgets(vendor_content, 10, file);
     fclose(file);
-    strncpy(vendorID, vendorCont + 2, 4);
-    vendorID[4] = '\0';
-    return vendorID;
+    strncpy(vendor_id, vendor_content + 2, 4);
+    vendor_id[4] = '\0';
+    return vendor_id;
 }
-char* getDeviceID(char deviceID[], char*inList[], int index) {
-    char rootPath[] = "/sys/bus/pci/devices";
-    char targetFile[] = "device";
+char* get_device_id(char device_id[], char*in_list[], int index) {
+    char root_path[] = "/sys/bus/pci/devices";
+    char target_file[] = "device";
     
     char path[60] = {0};
     for (int i = 0; i < 60; i++) {
-        if (i < 20) path[i] = rootPath[i];
+        if (i < 20) path[i] = root_path[i];
         else if (i == 20) path[i] = '/';
-        else if (i < 33) path[i] = inList[index][i - 21];
+        else if (i < 33) path[i] = in_list[index][i - 21];
         else if (i == 33) path[i] = '/';
-        else path[i] = targetFile[i - 34];
+        else path[i] = target_file[i - 34];
     }
 
     FILE *file;
     file = fopen(path, "r");
-    char deviceCont[10];
-    fgets(deviceCont, 10, file);
+    char device_content[10];
+    fgets(device_content, 10, file);
     fclose(file);
-    strncpy(deviceID, deviceCont + 2, 4);
-    deviceID[4] = '\0';
-    return deviceID;
+    strncpy(device_id, device_content + 2, 4);
+    device_id[4] = '\0';
+    return device_id;
 }
-char* getClassCode(char classCode[], char*inList[], int index) {
-    char rootPath[] = "/sys/bus/pci/devices";
-    char targetFile[] = "class";
+char* get_class_code(char class_code[], char*in_list[], int index) {
+    char root_path[] = "/sys/bus/pci/devices";
+    char target_file[] = "class";
     
     char path[60] = {0};
     for (int i = 0; i < 60; i++) {
-        if (i < 20) path[i] = rootPath[i];
+        if (i < 20) path[i] = root_path[i];
         else if (i == 20) path[i] = '/';
-        else if (i < 33) path[i] = inList[index][i - 21];
+        else if (i < 33) path[i] = in_list[index][i - 21];
         else if (i == 33) path[i] = '/';
-        else path[i] = targetFile[i - 34];
+        else path[i] = target_file[i - 34];
     }
 
     FILE *file;
     file = fopen(path, "r");
-    char classCont[16];
-    fgets(classCont, 16, file);
+    char class_content[16];
+    fgets(class_content, 16, file);
     fclose(file);
-    strncpy(classCode, classCont + 2, 6);
-    classCode[6] = '\0';
-    return classCode;
+    strncpy(class_code, class_content + 2, 6);
+    class_code[6] = '\0';
+    return class_code;
 }
