@@ -60,6 +60,7 @@ int parse_cpu_info(char request[], char* out_str) {
                 }
             }
             out_str[strlen(out_str) - 1] = '\0';
+            fclose(file);
             return 1;
         }
     }   
@@ -85,16 +86,13 @@ int parse_stat(int core, long out_arr[]) {
             line_num[1] = read_line[4];
             line_num[2] = '\0';
             int int_line_num = atoi(line_num);
-            //printf("%ld\n",int_line_num);
             if (int_line_num == core) {
-                printf("\n%s", read_line);
 
                 char num_holder[10] = {' '};
                 for (int i = 5, j = 0, k = 0; i < strlen(read_line); i++) {
                     if (i == 5) if (read_line[i] == ' ') continue;
                     if (read_line[i] == ' ') {
                         out_arr[j] = atol(num_holder);
-                        //printf("%c%ld%c", '(', out_arr[j], ')');
                         for (int l = 0;  l < 10; l++) num_holder[l] = ' ';
                         j++;
                         k = 0;
@@ -102,12 +100,28 @@ int parse_stat(int core, long out_arr[]) {
                     }
                     else num_holder[k] = read_line[i];
                     k++;
-
                 }
+
+                fclose(file);
+                return 1;
             } 
         }
     }
 
-
     fclose(file);
+    return 0;
+}
+
+long get_busy(int core) {
+    long core_stats[12] = {0};
+    parse_stat(core, core_stats);
+    long sum_busy = core_stats[0] + core_stats[1] + core_stats[2] + core_stats[5] + core_stats[6] + core_stats[7];
+    return sum_busy;
+}
+
+long get_idle(int core) {
+    long core_stats[12] = {0};
+    parse_stat(core, core_stats);
+    long sum_idle = core_stats[3] + core_stats[4];
+    return sum_idle;
 }
