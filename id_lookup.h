@@ -3,10 +3,10 @@
 
 #include <stdint.h>
 
-#define MAX_NAME_LEN 128
-#define MAX_VENDORS 3000
-#define MAX_DEVICES 3000
-#define MAX_CLASSES 1000
+#define MAX_NAME_LEN 256 
+#define MAX_VENDORS 6000
+#define MAX_DEVICES 6000
+#define MAX_CLASSES 2000
 
 typedef struct {
     int id;
