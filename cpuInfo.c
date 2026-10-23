@@ -84,11 +84,30 @@ int parse_stat(int core, long out_arr[]) {
             line_num[0] = read_line[3];
             line_num[1] = read_line[4];
             line_num[2] = '\0';
-            long int_line_num = atol(line_num);
-            printf("%ld\n",int_line_num);
-            if (int_line_num == core) printf("\n%s", read_line);
+            int int_line_num = atoi(line_num);
+            //printf("%ld\n",int_line_num);
+            if (int_line_num == core) {
+                printf("\n%s", read_line);
+
+                char num_holder[10] = {' '};
+                for (int i = 5, j = 0, k = 0; i < strlen(read_line); i++) {
+                    if (i == 5) if (read_line[i] == ' ') continue;
+                    if (read_line[i] == ' ') {
+                        out_arr[j] = atol(num_holder);
+                        //printf("%c%ld%c", '(', out_arr[j], ')');
+                        for (int l = 0;  l < 10; l++) num_holder[l] = ' ';
+                        j++;
+                        k = 0;
+                        continue;
+                    }
+                    else num_holder[k] = read_line[i];
+                    k++;
+
+                }
+            } 
         }
     }
+
 
     fclose(file);
 }

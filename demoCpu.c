@@ -13,8 +13,11 @@ int main() {
     get_model_name(model_name);
     printf("\nFirst model name\n%s\n----------", model_name);
 
-    long core_stats[8] = {0};
-    parse_stat(1, core_stats);
+    long core_stats[12] = {0};
+    parse_stat(4, core_stats);
+    for (int i = 0; i < 12;  i++) printf("%ld%c", core_stats[i], ' ');
+    printf("\n");
+    //parse_stat(10, core_stats);
 
     printf("\n");
     return 0;
