@@ -196,26 +196,3 @@ static int is_hex(char* s, int from, int to) {
 
     return 1;
 }
-
-int main() {
-    IdLookUp pci_db;
-    IdLookUp usb_db;
-
-    init_pci_db(&pci_db);
-    init_usb_db(&usb_db);
-
-    for (int i = 0; i < pci_db.vendor_count; i++) {
-        printf("%s, %d\n", pci_db.vendors[i].name, pci_db.vendors[i].id);
-    }
-
-    //for (int i = 0; i < usb_db.device_count; i++) {
-      //  printf("%d: %s, %d\n", i, usb_db.devices[i].name, usb_db.devices[i].key);
-    //}
-    
-    char vendor_name[MAX_NAME_LEN];
-    get_vendor_name(&pci_db, 7383, vendor_name, MAX_NAME_LEN);
-    printf("-------%s------\n", vendor_name);
-
-    
-    return 0;
-}
