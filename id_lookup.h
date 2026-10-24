@@ -3,9 +3,10 @@
 
 #include <stdint.h>
 
+//Must malloc IdLookUp as there is too much memory for the stack
 #define MAX_NAME_LEN 256 
-#define MAX_VENDORS 6000
-#define MAX_DEVICES 6000
+#define MAX_VENDORS 5000
+#define MAX_DEVICES 50000 
 #define MAX_CLASSES 2000
 
 typedef struct {
