@@ -2,7 +2,7 @@
 #include <threads.h>
 #include "cpuInfo.h"
 
-int cpu_report() {
+int main() {
 
     int core_count = get_count();
     printf("Amount of Cores:\n%d\n----------", core_count);
