@@ -33,20 +33,20 @@ int main(){
 
     char function[1];
     printf("\nFunction\n");
-    printf("%s\n", get_function(function, devices, 6));
+    printf("%s\n", get_function(function, devices, 10));
 
 
     //Same way to use as the above functions
     //Create your empty string to overwrite, then use getWhatever(thatString, devices, whichDevice)
-    char vendor_id[4];
+    char vendor_id[10];
     printf("----------\nVendor ID\n");
     printf("%s\n", get_vendor_id(vendor_id, devices, 6));
 
-    char device_id[4];
+    char device_id[10];
     printf("\nDevice ID\n");
     printf("%s\n", get_device_id(device_id, devices, 6));
 
-    char class_code[6];
+    char class_code[10];
     printf("\nClass Code\n");
     printf("%s\n", get_class_code(class_code, devices, 6));
 }

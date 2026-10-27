@@ -91,11 +91,9 @@ char* get_vendor_id(char vendor_id[], char*in_list[], int index) {
 
     FILE *file;
     file = fopen(path, "r");
-    char vendor_content[10];
-    fgets(vendor_content, 10, file);
+    fgets(vendor_id, 10, file);
     fclose(file);
-    strncpy(vendor_id, vendor_content + 2, 4);
-    vendor_id[4] = '\0';
+    vendor_id[6] = '\0';
     return vendor_id;
 }
 char* get_device_id(char device_id[], char*in_list[], int index) {
@@ -113,11 +111,9 @@ char* get_device_id(char device_id[], char*in_list[], int index) {
 
     FILE *file;
     file = fopen(path, "r");
-    char device_content[10];
-    fgets(device_content, 10, file);
+    fgets(device_id, 10, file);
     fclose(file);
-    strncpy(device_id, device_content + 2, 4);
-    device_id[4] = '\0';
+    device_id[6] = '\0';
     return device_id;
 }
 char* get_class_code(char class_code[], char*in_list[], int index) {
@@ -135,10 +131,8 @@ char* get_class_code(char class_code[], char*in_list[], int index) {
 
     FILE *file;
     file = fopen(path, "r");
-    char class_content[16];
-    fgets(class_content, 16, file);
+    fgets(class_code, 16, file);
     fclose(file);
-    strncpy(class_code, class_content + 2, 6);
-    class_code[6] = '\0';
+    class_code[8] = '\0';
     return class_code;
 }
