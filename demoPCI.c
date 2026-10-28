@@ -16,7 +16,7 @@ int main(){
     printf("%d\n", pci_count);
 
     //Print the array
-    //for (int i = 0; i < pci_count; i++) printf("%s\n",devices[i]);
+    for (int i = 0; i < pci_count; i++) printf("%s\n",devices[i]);
 
 
     printf("----------\nPCI Device\n");
@@ -25,28 +25,28 @@ int main(){
     //Overwrites the string with the correct substring
     char bus[2];
     printf("\nBus\n");
-    printf("%s\n", get_bus(bus, devices, 6));
+    printf("%s\n", get_bus(bus, devices[6]));
 
     char device[2];
     printf("\nDevice\n");
-    printf("%s\n", get_device(device, devices, 6));
+    printf("%s\n", get_device(device, devices[6]));
 
     char function[1];
     printf("\nFunction\n");
-    printf("%s\n", get_function(function, devices, 10));
+    printf("%s\n", get_function(function, devices[10]));
 
 
     //Same way to use as the above functions
     //Create your empty string to overwrite, then use getWhatever(thatString, devices, whichDevice)
     char vendor_id[10];
     printf("----------\nVendor ID\n");
-    printf("%s\n", get_vendor_id(vendor_id, devices, 6));
+    printf("%s\n", get_vendor_id(vendor_id, devices[6]));
 
     char device_id[10];
     printf("\nDevice ID\n");
-    printf("%s\n", get_device_id(device_id, devices, 6));
+    printf("%s\n", get_device_id(device_id, devices[6]));
 
     char class_code[10];
     printf("\nClass Code\n");
-    printf("%s\n", get_class_code(class_code, devices, 6));
+    printf("%s\n", get_class_code(class_code, devices[6]));
 }

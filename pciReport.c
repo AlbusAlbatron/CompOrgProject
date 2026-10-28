@@ -18,16 +18,28 @@ int main() {
         char bus[2] = {0};
         char device[2] = {0};
         char function[2] = {0};
+        
         printf("\nPCI Device %d:\t",i);
-        printf("%s:", get_bus(bus, devices, i));
-        printf("%s.", get_device(device, devices, i));
-        printf("%s\n", get_function(function, devices, i));
+        printf("%s:", get_bus(bus, devices[i]));
+        printf("%s.", get_device(device, devices[i]));
+        printf("%s", get_function(function, devices[i]));
+        printf("\n");
 
-        char vendor_id[10] = {' '};
-        printf("%s",get_vendor_id(vendor_id, devices, i));
+        char vendor_id[10];
+        get_vendor_id(vendor_id, devices[i]);
+        char device_id[10];
+        get_device_id(device_id, devices[i]);
+        char class_code[12];
+        get_class_code(class_code, devices[i]);
         char result[MAX_NAME_LEN];
         get_vendor_name(pci_db, strtol(vendor_id, NULL, 0), result, sizeof(result));
         printf("Vendor: %s - ", vendor_id);
+        printf("%s\n", result);
+        get_device_name(pci_db, strtol(device_id, NULL, 0), strtol(vendor_id, NULL, 0), result, sizeof(result));
+        printf("Device: %s - ", device_id);
+        printf("%s\n", result);
+        get_class_name(pci_db, strtol(class_code, NULL, 0), result, sizeof(result));
+        printf("Class: %s - ", class_code);
         printf("%s\n", result);
     }
 

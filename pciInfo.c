@@ -23,7 +23,7 @@ int create_list(char *devices[], int temp_max) {
     {
         if (( file->d_name[0] == '.' )) continue;
 
-        devices[index] = file->d_name;
+        devices[index] = strdup(file->d_name);
         index++;
     }
 
@@ -52,18 +52,18 @@ int sort_list(char *in_list[], int in_list_len) {
 //Takes in a string to overwrite, the device list, and an index from that list
 //Overwrites the input string with the correct substring
 //'\0' closes or like ends the string so theres not trailing characters and stuff
-char* get_bus(char bus[], char *in_list[], int index) {
-    strncpy(bus, in_list[index] + 5, 2);
+char* get_bus(char bus[], char *pci_device) {
+    strncpy(bus, pci_device + 5, 2);
     bus[2] = '\0';
     return bus;
 }
-char* get_device(char device[], char *in_list[], int index) {
-    strncpy(device, in_list[index] + 8, 2);
+char* get_device(char device[], char *pci_device) {
+    strncpy(device, pci_device + 8, 2);
     device[2] = '\0';
     return device;
 }
-char* get_function(char function[], char *in_list[], int index) {
-    strncpy(function, in_list[index] + 11, 1);
+char* get_function(char function[], char *pci_device) {
+    strncpy(function, pci_device + 11, 1);
     function[1] = '\0';
     return function;
 }
@@ -71,23 +71,16 @@ char* get_function(char function[], char *in_list[], int index) {
 
 //These three functions have the same parameters as previous, but different content
 //Stores the root path as a string, and the target file to get the ID from
-//Strings are annoying in C, if theres a better way to concatonate than I did, idk
 //Open the file from the created path
 //Make a temp string to hold all content of the file
 //Take the target substring, same way as above functions
 //Close the file and return the string
-char* get_vendor_id(char vendor_id[], char*in_list[], int index) {
-    char root_path[] = "/sys/bus/pci/devices";
-    char target_file[] = "vendor";
+char* get_vendor_id(char vendor_id[], char pci_device[]) {
+    char root_path[] = "/sys/bus/pci/devices/";
+    char target_file[] = "/vendor";
 
     char path[60] = {0};
-    for (int i = 0; i < 60; i++) {
-        if (i < 20) path[i] = root_path[i];
-        else if (i == 20) path[i] = '/';
-        else if (i < 33) path[i] = in_list[index][i - 21];
-        else if (i == 33) path[i] = '/';
-        else path[i] = target_file[i - 34];
-    }
+    snprintf(path, 60, "%s%s%s", root_path, pci_device, target_file);
 
     FILE *file;
     file = fopen(path, "r");
@@ -96,18 +89,12 @@ char* get_vendor_id(char vendor_id[], char*in_list[], int index) {
     vendor_id[6] = '\0';
     return vendor_id;
 }
-char* get_device_id(char device_id[], char*in_list[], int index) {
-    char root_path[] = "/sys/bus/pci/devices";
-    char target_file[] = "device";
+char* get_device_id(char device_id[], char pci_device[]) {
+    char root_path[] = "/sys/bus/pci/devices/";
+    char target_file[] = "/device";
     
     char path[60] = {0};
-    for (int i = 0; i < 60; i++) {
-        if (i < 20) path[i] = root_path[i];
-        else if (i == 20) path[i] = '/';
-        else if (i < 33) path[i] = in_list[index][i - 21];
-        else if (i == 33) path[i] = '/';
-        else path[i] = target_file[i - 34];
-    }
+    snprintf(path, 60, "%s%s%s", root_path, pci_device, target_file);
 
     FILE *file;
     file = fopen(path, "r");
@@ -116,18 +103,13 @@ char* get_device_id(char device_id[], char*in_list[], int index) {
     device_id[6] = '\0';
     return device_id;
 }
-char* get_class_code(char class_code[], char*in_list[], int index) {
-    char root_path[] = "/sys/bus/pci/devices";
-    char target_file[] = "class";
+
+char* get_class_code(char class_code[], char pci_device[]) {
+    char root_path[] = "/sys/bus/pci/devices/";
+    char target_file[] = "/class";
     
     char path[60] = {0};
-    for (int i = 0; i < 60; i++) {
-        if (i < 20) path[i] = root_path[i];
-        else if (i == 20) path[i] = '/';
-        else if (i < 33) path[i] = in_list[index][i - 21];
-        else if (i == 33) path[i] = '/';
-        else path[i] = target_file[i - 34];
-    }
+    snprintf(path, 60, "%s%s%s", root_path, pci_device, target_file);
 
     FILE *file;
     file = fopen(path, "r");
