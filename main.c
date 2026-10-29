@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "cpu_report.h"
+#include "pciReport.h"
 #include "mem_info.h"
 #include "id_lookup.h"
 #include "usb_report.h"
@@ -34,10 +36,12 @@ int main(void)
         switch (choice) {
             case 1:
                 printf("Running CPU Report\n");
+                cpu_report();
                 break;
 
             case 2:
                 printf("PCI Device Report\n");
+                pci_report();
                 break;
 
             case 3:
