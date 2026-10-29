@@ -1,0 +1,72 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "mem_info.h"
+#include "id_lookup.h"
+#include "usb_report.h"
+#include "parallel_benchmark.h"
+``
+
+int main(void)
+{
+    int choice;
+
+    do {
+        printf("\n--- Device Info Report ---\n");
+        printf("1. CPU Report\n");
+        printf("2. PCI Device Report\n");
+        printf("3. Memory Report\n");
+        printf("4. USB Device Report\n");
+        printf("5. Parallel Performance Benchmark\n");
+        printf("0. Exit\n");
+
+        printf("\nSelect an option: ");
+
+        if (scanf("%d", &choice) != 1) {
+            int ch;
+            while ((ch = getchar()) != '\n' && ch != EOF) {
+            }
+
+            printf("Please enter a number:\n");
+            continue;
+        }
+
+        switch (choice) {
+            case 1:
+                printf("Running CPU Report\n");
+                break;
+
+            case 2:
+                printf("PCI Device Report\n");
+                break;
+
+            case 3:
+                printf("Memory_Report\n");
+                break;
+
+            case 4:
+                printf("USB Device Report\n");
+                break;
+
+            case 5:
+                printf("Parallel Benchmark\n");
+                break;
+            case 6:
+                printf("Memory Hierarchy\n");
+                break;
+            case 0:
+                printf("Exiting\n");
+                break;
+
+            default:
+                printf("Invalid option. Try again.\n");
+                break;
+        }
+
+    } while (choice != 0);
+
+    return 0;
+}
+
+
+
