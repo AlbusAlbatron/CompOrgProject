@@ -218,7 +218,7 @@ double time_stride(size_t bytes, size_t stride)
 
 /* ---------- main ---------- */
 
-
+/*
 int main(void)
 {
     srand(12345);
@@ -233,12 +233,12 @@ int main(void)
 
 
 
-    /* one tidy table: experiment name, x value in bytes, time per access */
+     one tidy table: experiment name, x value in bytes, time per access 
     fprintf(out, "experiment,x_bytes,ns_per_access\n");
 
 
     
-    /* Experiment 1: 1 KB up to 64 MB, four sizes per doubling */
+    Experiment 1: 1 KB up to 64 MB, four sizes per doubling 
     for (size_t base = 1024; base <= 64UL * 1024 * 1024; base *= 2) {
         for (int k = 0; k < 4; k++) {
             size_t bytes = base + k * (base / 4);
@@ -253,7 +253,7 @@ int main(void)
     }
 
     
-    /* Experiment 2: 64 MB array, stride 1 byte up to 512 bytes */
+     Experiment 2: 64 MB array, stride 1 byte up to 512 bytes 
     for (size_t stride = 1; stride <= 512; stride *= 2) {
         double t = time_stride(64UL * 1024 * 1024, stride);
         fprintf(out, "stride,%zu,%.3f\n", stride, t);
@@ -265,4 +265,4 @@ int main(void)
     printf("Saved results.csv\n");
 
     return 0;
-}
+}*/
