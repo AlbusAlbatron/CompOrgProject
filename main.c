@@ -9,6 +9,8 @@
 #include "parallel_benchmark.h"
 #include "mem_hierarchy.h"
 
+void display_mem_info();
+
 int main(void)
 {
     int choice;
@@ -47,7 +49,7 @@ int main(void)
                 break;
 
             case 3:
-                //display_mem_info();
+                display_mem_info();
                 break;
 
             case 4:
