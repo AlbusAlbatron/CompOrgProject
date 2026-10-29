@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #include "cpuReport.h"
 #include "pciReport.h"
@@ -16,6 +17,8 @@ int main(void)
     int choice;
 
     do {
+        sleep(2);
+
         printf("\n--- Device Info Report ---\n");
         printf("1. CPU Report\n");
         printf("2. PCI Device Report\n");
@@ -85,7 +88,7 @@ int main(void)
 
 
             case 5:
-                printf("Parallel Benchmark\n");
+                printf("---Parallel Benchmark---\n");
                 run_parallel_performance_benchmark();
                 printf("\n\n");
                 break;
