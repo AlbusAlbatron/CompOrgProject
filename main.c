@@ -38,14 +38,16 @@ int main(void)
         switch (choice) {
             case 1:
                 printf("Running CPU Report\n");
+                cpu_report();
                 break;
 
             case 2:
                 printf("PCI Device Report\n");
+                pci_report();
                 break;
 
             case 3:
-                display_mem_info();
+                //display_mem_info();
                 break;
 
             case 4:
