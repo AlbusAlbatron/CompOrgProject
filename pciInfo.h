@@ -1,5 +1,5 @@
-#ifndef PCIINFO.H
-#define PCIINFO.H
+#ifndef PCIINFO_H
+#define PCIINFO_H
 
 int create_list(char *devices[], int temp_max);
 int sort_list(char *in_list[], int in_list_len);
