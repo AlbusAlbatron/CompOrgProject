@@ -4,6 +4,7 @@
 #include "mem_info.h"
 #include "id_lookup.h"
 #include "usb_report.h"
+#include "pciReport.h"
 #include "parallel_benchmark.h"
 
 void display_mem_info();
@@ -19,6 +20,7 @@ int main(void)
         printf("3. Memory Report\n");
         printf("4. USB Device Report\n");
         printf("5. Parallel Performance Benchmark\n");
+        printf("6. Memory Hierarchy Experiment")
         printf("0. Exit\n");
 
         printf("\nSelect an option: ");
@@ -51,6 +53,7 @@ int main(void)
 
             case 5:
                 printf("Parallel Benchmark\n");
+                int run_parallel_performance_benchmark(void);
                 break;
             case 6:
                 printf("Memory Hierarchy\n");
