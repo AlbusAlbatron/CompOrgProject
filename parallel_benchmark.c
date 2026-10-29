@@ -23,7 +23,7 @@ typedef struct {
 
 static void* matrix_multiply(void* arg);
 static double run_timer(int thread_count);
-static double amdahl_calc(double serial_time, int core_count); 
+static double amdahl_calc(int core_count); 
 static int test_results_display(TestResult test_results[], int test_count);
 
 
@@ -57,8 +57,8 @@ int run_parallel_performance_benchmark() {
     return 0;
 }
 
-static double amdahl_calc(double base_time, int core_count) {
-    double p = 0.9999;
+static double amdahl_calc(int core_count) {
+    double p = 0.99;
 
     double speedup = 1.0 / ((1.0 - p) + (p  / (double)core_count));
 
@@ -75,12 +75,11 @@ static int test_results_display(TestResult test_results[], int test_count) {
         double time = test_results[i].real_time;
         
         if (threads == 1) {
-            // Keep the 1-thread output perfectly aligned with the rest
             printf("1 thread  -> %.2fs (Baseline)\n", time);
         } else {
             // Calculate speedups directly inline to keep the code short
             double speedup = base_time / time;
-            double amdahl = amdahl_calc(base_time, threads);
+            double amdahl = amdahl_calc(threads);
             
             printf("%d threads -> %.2fs (Speedup: %.2fx, Predicted: %.2fx)\n", 
                    threads, time, speedup, amdahl);
