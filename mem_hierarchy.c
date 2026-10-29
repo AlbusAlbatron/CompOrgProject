@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#inlcude "mem_hierarchy.h"
 
 #define ACCESSES 10000000L /* accesses per timed run */
 #define REPEATS   3        /* num of runs kept, more runs is more noisy */
