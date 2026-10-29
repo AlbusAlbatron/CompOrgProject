@@ -3,6 +3,7 @@
 #include <pthread.h>
 #include <time.h>
 #include "cpuInfo.h"
+#include "parallel_benchmark.h"
 
 #define N 1024 
 
