@@ -20,6 +20,14 @@ long get_used() {
     return (total < 0 || available < 0) ? -1 : total - available;
 }
 
+double get_used_percent() {
+    long total = get_total();
+    long available = get_available();
+    double used = (double)(total - available);
+    
+    return (total < 0 || available < 0) ? -1 : (used / total) * 100;
+}
+
 //The valie of KiB of a named line of /proc/meminfo
 long get_mem_field(const char* name) {
     FILE *file = fopen("/proc/meminfo", "r");
