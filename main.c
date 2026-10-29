@@ -58,11 +58,11 @@ int main(void)
                 break;
             case 6:
                 printf("Memory Hierarchy\n");
-                int run_experiments(void);
+                run_experiments();
                 break;
             case 7:
                 printf("Memory Hierarchy with Graph\n");
-                int run_experiments_and_plot(void);
+                run_experiments_and_plot();
                 break;
             case 0:
                 printf("Exiting\n");
