@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#inlcude "mem_hierarchy.h"
 
 #define ACCESSES 10000000L /* accesses per timed run */
 #define REPEATS   3        /* num of runs kept, more runs is more noisy */
@@ -216,10 +217,33 @@ double time_stride(size_t bytes, size_t stride)
     return best;
 }
 
-/* ---------- main ---------- */
 
 
-int main(void)
+static void print_cache_overview(void)
+{
+    char level[64], type[64], size[64], line[64];
+    int found = 0;
+
+    printf("\nCache overview (as reported by /sys for cpu0):\n");
+    for (int i = 0; i < 8; i++) {
+        read_cache_file(i, "level", level, sizeof(level));
+        if (level[0] == '\0') {
+            break;   /* no more cache indexes */
+        }
+        read_cache_file(i, "type", type, sizeof(type));
+        read_cache_file(i, "size", size, sizeof(size));
+        read_cache_file(i, "coherency_line_size", line, sizeof(line));
+        printf("  L%s %-12s %8s   line size %s bytes\n", level, type, size, line);
+        found = 1;
+    }
+    if (!found) {
+        printf("  (no cache information found under /sys)\n");
+    }
+}
+
+
+/* Runs both experiments, prints each result as it goes*/
+int run_experiments(void)
 {
     srand(12345);
 
@@ -232,12 +256,10 @@ int main(void)
     }
 
 
-
     /* one tidy table: experiment name, x value in bytes, time per access */
     fprintf(out, "experiment,x_bytes,ns_per_access\n");
 
 
-    
     /* Experiment 1: 1 KB up to 64 MB, four sizes per doubling */
     for (size_t base = 1024; base <= 64UL * 1024 * 1024; base *= 2) {
         for (int k = 0; k < 4; k++) {
@@ -252,7 +274,7 @@ int main(void)
         }
     }
 
-    
+
     /* Experiment 2: 64 MB array, stride 1 byte up to 512 bytes */
     for (size_t stride = 1; stride <= 512; stride *= 2) {
         double t = time_stride(64UL * 1024 * 1024, stride);
@@ -264,5 +286,75 @@ int main(void)
     fclose(out);
     printf("Saved results.csv\n");
 
+    print_cache_overview();
+
     return 0;
 }
+
+
+/* Does everything run_experiments does, then csv*/
+int run_experiments_and_plot(void)
+{
+    if (run_experiments() != 0) {
+        return 1;
+    }
+
+    int status = system("python3 plot.py");
+    if (status != 0) {
+        printf("plot.py failed (is python3 and matplotlib installed?)\n");
+        return 1;
+    }
+
+    return 0;
+}
+
+/* ---------- main ---------- */
+
+/*
+int main(void)
+{
+    srand(12345);
+
+    save_sys_info("sys_cache.csv");
+
+    FILE *out = fopen("results.csv", "w");
+    if (out == NULL) {
+        perror("results.csv");
+        return 1;
+    }
+
+
+
+     one tidy table: experiment name, x value in bytes, time per access 
+    fprintf(out, "experiment,x_bytes,ns_per_access\n");
+
+
+    
+    Experiment 1: 1 KB up to 64 MB, four sizes per doubling 
+    for (size_t base = 1024; base <= 64UL * 1024 * 1024; base *= 2) {
+        for (int k = 0; k < 4; k++) {
+            size_t bytes = base + k * (base / 4);
+            if (bytes > 64UL * 1024 * 1024) {
+                break;
+            }
+            double t = time_chase(bytes);
+            fprintf(out, "working_set,%zu,%.3f\n", bytes, t);
+            fflush(out);
+            printf("working set %zu bytes: %.3f ns\n", bytes, t);
+        }
+    }
+
+    
+     Experiment 2: 64 MB array, stride 1 byte up to 512 bytes 
+    for (size_t stride = 1; stride <= 512; stride *= 2) {
+        double t = time_stride(64UL * 1024 * 1024, stride);
+        fprintf(out, "stride,%zu,%.3f\n", stride, t);
+        fflush(out);
+        printf("stride %zu bytes: %.3f ns\n", stride, t);
+    }
+
+    fclose(out);
+    printf("Saved results.csv\n");
+
+    return 0;
+}*/
