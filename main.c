@@ -7,8 +7,7 @@
 #include "id_lookup.h"
 #include "usb_report.h"
 #include "parallel_benchmark.h"
-
-void display_mem_info();
+#include "mem_hierarchy.h"
 
 int main(void)
 {
@@ -22,6 +21,7 @@ int main(void)
         printf("4. USB Device Report\n");
         printf("5. Parallel Performance Benchmark\n");
         printf("6. Memory Hierarchy Experiment\n");
+        printf("7. Memory Hierarchy Experiment with Python graph\n");
         printf("0. Exit\n");
 
         printf("\nSelect an option: ");
@@ -50,6 +50,22 @@ int main(void)
 
             case 4:
                 printf("USB Device Report\n");
+                {
+                    // 1. Set up a quick database here
+                    IdLookUp* usb_db = malloc(sizeof(IdLookUp));
+                    if (usb_db != NULL) {
+                        usb_db->vendor_count = 0;
+                        usb_db->device_count = 0;
+                        usb_db->class_count = 0;
+                    }
+
+                    // 2. Call usb report function directly
+                    report_usb_devices(usb_db, NULL);
+
+                    // 3. Clean up the memory immediately
+                    if (usb_db != NULL) {
+                        free(usb_db);
+                    }
                 break;
 
             case 5:
@@ -59,6 +75,11 @@ int main(void)
                 break;
             case 6:
                 printf("Memory Hierarchy\n");
+                run_experiments();
+                break;
+            case 7:
+                printf("Memory Hierarchy with Graph\n");
+                run_experiments_and_plot();
                 break;
             case 0:
                 printf("Exiting\n");
