@@ -7,6 +7,7 @@
 #include "id_lookup.h"
 #include "usb_report.h"
 #include "parallel_benchmark.h"
+#include "mem_hierarchy.h"
 
 void display_mem_info();
 
@@ -21,7 +22,8 @@ int main(void)
         printf("3. Memory Report\n");
         printf("4. USB Device Report\n");
         printf("5. Parallel Performance Benchmark\n");
-        printf("6. Memory Hierarchy Experiment")
+        printf("6. Memory Hierarchy Experiment"\n);
+        printf("7. Memory Hierarchy Experiment with Python graph"\n);
         printf("0. Exit\n");
 
         printf("\nSelect an option: ");
@@ -58,6 +60,11 @@ int main(void)
                 break;
             case 6:
                 printf("Memory Hierarchy\n");
+                int run_experiments(void);
+                break;
+            case 7:
+                printf("Memory Hierarchy with Graph\n");
+                int run_experiments_and_plot(void);
                 break;
             case 0:
                 printf("Exiting\n");
