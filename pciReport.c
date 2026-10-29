@@ -3,6 +3,7 @@
 #include <string.h>
 #include "pciInfo.h"
 #include "id_lookup.h"
+#include "pciReport.h"
 
 int main() {
     IdLookUp* pci_db = malloc(sizeof(IdLookUp));
