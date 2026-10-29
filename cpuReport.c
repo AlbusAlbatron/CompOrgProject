@@ -12,8 +12,8 @@ int cpu_report() {
     printf("\nProcessor Model Name:\n%s\n----------", model_name);
 
     printf("\nProcessor Load Report\n");
-    double total_busy;
-    double total_idle;
+    double total_busy = 0;
+    double total_idle = 0;
     for (int i = 0; i < core_count; i++) {
         long core_stats[12] = {0};
         if (parse_stat(i, core_stats)){

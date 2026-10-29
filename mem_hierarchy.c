@@ -299,7 +299,7 @@ int run_experiments_and_plot(void)
         return 1;
     }
 
-    int status = system("python3 plot.py");
+    int status = system("python3 csvgraph.py");
     if (status != 0) {
         printf("plot.py failed (is python3 and matplotlib installed?)\n");
         return 1;

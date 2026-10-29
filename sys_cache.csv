@@ -1,0 +1,5 @@
+index,level,type,size,line_size_bytes
+0,1,Data,32K,64
+1,1,Instruction,32K,64
+2,2,Unified,512K,64
+3,3,Unified,16384K,64
