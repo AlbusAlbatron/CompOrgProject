@@ -5,7 +5,7 @@
 #include "id_lookup.h"
 #include "pciReport.h"
 
-int main() {
+int pci_report() {
     IdLookUp* pci_db = malloc(sizeof(IdLookUp));
     init_pci_db(pci_db);
 
