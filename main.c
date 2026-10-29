@@ -7,7 +7,8 @@
 #include "id_lookup.h"
 #include "usb_report.h"
 #include "parallel_benchmark.h"
-``
+
+void display_mem_info();
 
 int main(void)
 {
@@ -20,6 +21,7 @@ int main(void)
         printf("3. Memory Report\n");
         printf("4. USB Device Report\n");
         printf("5. Parallel Performance Benchmark\n");
+        printf("6. Memory Hierarchy Experiment")
         printf("0. Exit\n");
 
         printf("\nSelect an option: ");
@@ -36,16 +38,14 @@ int main(void)
         switch (choice) {
             case 1:
                 printf("Running CPU Report\n");
-                cpu_report();
                 break;
 
             case 2:
                 printf("PCI Device Report\n");
-                pci_report();
                 break;
 
             case 3:
-                printf("Memory_Report\n");
+                display_mem_info();
                 break;
 
             case 4:
@@ -54,6 +54,7 @@ int main(void)
 
             case 5:
                 printf("Parallel Benchmark\n");
+                int run_parallel_performance_benchmark(void);
                 break;
             case 6:
                 printf("Memory Hierarchy\n");
@@ -72,5 +73,17 @@ int main(void)
     return 0;
 }
 
+void display_mem_info() {
+    long total = get_total();
+    long used = get_used();
+    long available = get_available();
+    double used_percent = get_used_percent();
 
+    printf("\n=== Memory Report ===\n");
+
+    printf("Total:     %ld KiB\n", total);
+    printf("Used:      %ld KiB\n", used);
+    printf("Available: %ld KiB\n", available);
+    printf("Used Percent %0.2f%%", used_percent);
+}
 
