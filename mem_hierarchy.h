@@ -6,5 +6,8 @@
 double time_chase(size_t bytes);
 double time_stride(size_t bytes, size_t stride);
 void save_sys_info(const char *filename);
+
+int run_experiments(void);
+int run_experiments_and_plot(void);
  
 #endif
