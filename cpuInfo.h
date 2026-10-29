@@ -1,5 +1,5 @@
-#ifndef CPUINFO.H
-#define CPUINFO.H
+#ifndef CPUINFO_H
+#define CPUINFO_H
 
 int get_count();
 int parse_cpu_info(char name[], char* out_str);
