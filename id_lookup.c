@@ -69,7 +69,7 @@ int init_id_lookup(const char *filepath, IdLookUp *lookup_db) {
             if (lookup_db->device_count < MAX_DEVICES) {
                 int device = (int)strtol(&line[1], NULL, 16);
                 lookup_db->devices[lookup_db->device_count].key = make_device_key(lookup_db->vendors[current_vendor].id, device);
-                snprintf(lookup_db->devices[lookup_db->device_count].name, MAX_NAME_LEN, "%s" , &line[7]);
+                snprintf(lookup_db->devices[lookup_db->device_count].name, MAX_NAME_LEN, "%s", &line[7]);
                 lookup_db->devices[lookup_db->device_count].name[strcspn(lookup_db->devices[lookup_db->device_count].name, "\n")] = '\0';
                 lookup_db->device_count++;
             }
@@ -196,3 +196,4 @@ static int is_hex(char* s, int from, int to) {
 
     return 1;
 }
+
