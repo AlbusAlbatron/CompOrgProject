@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "cpu_report.h"
+#include "cpuReport.h"
 #include "pciReport.h"
 #include "mem_info.h"
 #include "id_lookup.h"
@@ -20,8 +20,8 @@ int main(void)
         printf("3. Memory Report\n");
         printf("4. USB Device Report\n");
         printf("5. Parallel Performance Benchmark\n");
-        printf("6. Memory Hierarchy Experiment"\n);
-        printf("7. Memory Hierarchy Experiment with Python graph"\n);
+        printf("6. Memory Hierarchy Experiment\n");
+        printf("7. Memory Hierarchy Experiment with Python graph\n");
         printf("0. Exit\n");
 
         printf("\nSelect an option: ");
@@ -70,7 +70,8 @@ int main(void)
 
             case 5:
                 printf("Parallel Benchmark\n");
-                int run_parallel_performance_benchmark(void);
+                run_parallel_performance_benchmark();
+                printf("\n\n");
                 break;
             case 6:
                 printf("Memory Hierarchy\n");
@@ -105,6 +106,6 @@ void display_mem_info() {
     printf("Total:     %ld KiB\n", total);
     printf("Used:      %ld KiB\n", used);
     printf("Available: %ld KiB\n", available);
-    printf("Used Percent %0.2f%%", used_percent);
+    printf("Used Percent %0.2f%%\n\n", used_percent);
 }
 
