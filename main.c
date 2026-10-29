@@ -5,7 +5,8 @@
 #include "id_lookup.h"
 #include "usb_report.h"
 #include "parallel_benchmark.h"
-``
+
+void display_mem_info();
 
 int main(void)
 {
@@ -41,7 +42,7 @@ int main(void)
                 break;
 
             case 3:
-                printf("Memory_Report\n");
+                display_mem_info();
                 break;
 
             case 4:
@@ -66,6 +67,20 @@ int main(void)
     } while (choice != 0);
 
     return 0;
+}
+
+void display_mem_info() {
+    long total = get_total();
+    long used = get_used();
+    long available = get_available();
+    double used_percent = get_used_percent();
+
+    printf("\n=== Memory Report ===\n");
+
+    printf("Total:     %ld KiB\n", total);
+    printf("Used:      %ld KiB\n", used);
+    printf("Available: %ld KiB\n", available);
+    printf("Used Percent %0.2f%%", used_percent);
 }
 
 
