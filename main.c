@@ -7,7 +7,6 @@
 #include "id_lookup.h"
 #include "usb_report.h"
 #include "parallel_benchmark.h"
-``
 
 int main(void)
 {
