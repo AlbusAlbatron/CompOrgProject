@@ -66,6 +66,7 @@ int main(void)
                     if (usb_db != NULL) {
                         free(usb_db);
                     }
+                }
                 break;
 
             case 5:
