@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "cpu_report.h"
+#include "cpuReport.h"
 #include "pciReport.h"
 #include "mem_info.h"
 #include "id_lookup.h"
 #include "usb_report.h"
 #include "parallel_benchmark.h"
-``
+#include "mem_hierarchy.h"
 
 int main(void)
 {
@@ -20,6 +20,8 @@ int main(void)
         printf("3. Memory Report\n");
         printf("4. USB Device Report\n");
         printf("5. Parallel Performance Benchmark\n");
+        printf("6. Memory Hierarchy Experiment\n");
+        printf("7. Memory Hierarchy Experiment with Python graph\n");
         printf("0. Exit\n");
 
         printf("\nSelect an option: ");
@@ -45,18 +47,41 @@ int main(void)
                 break;
 
             case 3:
-                printf("Memory_Report\n");
+                display_mem_info();
                 break;
 
             case 4:
                 printf("USB Device Report\n");
+                
+                    // 1. Set up a quick database here
+                    IdLookUp* usb_db = malloc(sizeof(IdLookUp));
+                    if (usb_db != NULL) {
+                        usb_db->vendor_count = 0;
+                        usb_db->device_count = 0;
+                        usb_db->class_count = 0;
+                    }
+
+                    // 2. Call usb report function directly
+                    report_usb_devices(usb_db, NULL);
+
+                    // 3. Clean up the memory immediately
+                    if (usb_db != NULL) {
+                        free(usb_db);
+                    }
                 break;
 
             case 5:
                 printf("Parallel Benchmark\n");
+                run_parallel_performance_benchmark();
+                printf("\n\n");
                 break;
             case 6:
                 printf("Memory Hierarchy\n");
+                run_experiments();
+                break;
+            case 7:
+                printf("Memory Hierarchy with Graph\n");
+                run_experiments_and_plot();
                 break;
             case 0:
                 printf("Exiting\n");
@@ -72,5 +97,17 @@ int main(void)
     return 0;
 }
 
+void display_mem_info() {
+    long total = get_total();
+    long used = get_used();
+    long available = get_available();
+    double used_percent = get_used_percent();
 
+    printf("\n=== Memory Report ===\n");
+
+    printf("Total:     %ld KiB\n", total);
+    printf("Used:      %ld KiB\n", used);
+    printf("Available: %ld KiB\n", available);
+    printf("Used Percent %0.2f%%\n\n", used_percent);
+}
 
