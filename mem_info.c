@@ -25,7 +25,7 @@ double get_used_percent() {
     long available = get_available();
     double used = (double)(total - available);
     
-    return (total < 0 || available < 0) ? -1 : (used / total) * 100;
+    return (total < 0 || available < 0) ? -1 : (used / (double)total) * 100;
 }
 
 //The valie of KiB of a named line of /proc/meminfo
