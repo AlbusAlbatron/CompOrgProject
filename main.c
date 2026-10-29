@@ -50,6 +50,22 @@ int main(void)
 
             case 4:
                 printf("USB Device Report\n");
+                {
+                    // 1. Set up a quick database here
+                    IdLookUp* usb_db = malloc(sizeof(IdLookUp));
+                    if (usb_db != NULL) {
+                        usb_db->vendor_count = 0;
+                        usb_db->device_count = 0;
+                        usb_db->class_count = 0;
+                    }
+
+                    // 2. Call usb report function directly
+                    report_usb_devices(usb_db, NULL);
+
+                    // 3. Clean up the memory immediately
+                    if (usb_db != NULL) {
+                        free(usb_db);
+                    }
                 break;
 
             case 5:
