@@ -8,8 +8,6 @@
 #include "usb_report.h"
 #include "parallel_benchmark.h"
 
-void display_mem_info();
-
 int main(void)
 {
     int choice;
