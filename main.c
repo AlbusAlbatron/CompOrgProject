@@ -55,7 +55,7 @@ int main(void)
             case 4:
                 printf("USB Device Report\n");
                 {
-                    // 1. Set up a quick database here
+                    // 1. Set up the temporary database here
                     IdLookUp* usb_db = malloc(sizeof(IdLookUp));
                     if (usb_db != NULL) {
                         usb_db->vendor_count = 0;
@@ -63,15 +63,26 @@ int main(void)
                         usb_db->class_count = 0;
                     }
 
-                    // 2. Call usb report function directly
-                    report_usb_devices(usb_db, NULL);
+                    // 2. Open the CSV file here
+                    FILE *csv_file = fopen("hardware_report.csv", "w");
+                    if (csv_file != NULL) {
+                        // Print the column headers
+                        fprintf(csv_file, "Subsystem,Vendor ID,Product ID,Vendor Name,Product Name\n");
+                    }
 
-                    // 3. Clean up the memory immediately
+                    // 3. Pass BOTH the database and active file pointer
+                    report_usb_devices(usb_db, csv_file);
+
+                    // 4. Clean up everything safely before exiting the case
+                    if (csv_file != NULL) {
+                        fclose(csv_file);
+                    }
                     if (usb_db != NULL) {
                         free(usb_db);
                     }
                 }
                 break;
+
 
             case 5:
                 printf("Parallel Benchmark\n");
